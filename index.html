@@ -26,19 +26,50 @@
             </p>
         </div>
 
-        <!-- Action Bar (Search) -->
-        <div class="bg-white p-4 rounded-t-2xl shadow-sm border-b border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="relative w-full md:w-96">
-                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5"></i>
-                <input 
-                    type="text" 
-                    id="searchInput"
-                    placeholder="Cari prodi, kode, atau lembaga akreditasi..." 
-                    class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                />
-            </div>
-            <div class="text-sm text-slate-500 font-medium">
-                Menampilkan <span id="countDisplay" class="text-slate-900">0</span> Program Studi
+        <!-- Action Bar (Search & Filter) -->
+        <div class="bg-white p-4 rounded-t-2xl shadow-sm border-b border-slate-100 flex flex-col gap-4">
+            <div class="flex flex-col xl:flex-row justify-between items-center gap-4 w-full">
+                
+                <!-- Filter Controls -->
+                <div class="flex flex-col md:flex-row gap-3 w-full xl:w-auto flex-1">
+                    
+                    <!-- Search Input -->
+                    <div class="relative w-full md:w-80">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5"></i>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="Cari program studi, kode, atau lembaga..." 
+                            class="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-sm"
+                        />
+                    </div>
+                    
+                    <!-- Filter Jenjang Dropdown -->
+                    <div class="relative w-full md:w-48">
+                        <i data-lucide="graduation-cap" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5"></i>
+                        <select id="filterJenjang" class="w-full pl-10 pr-8 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-sm appearance-none bg-white text-slate-700 cursor-pointer">
+                            <option value="">Semua Jenjang</option>
+                        </select>
+                        <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4 pointer-events-none"></i>
+                    </div>
+
+                    <!-- Filter Akreditasi Dropdown -->
+                    <div class="relative w-full md:w-56">
+                        <i data-lucide="globe" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5"></i>
+                        <select id="filterLembaga" class="w-full pl-10 pr-8 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-sm appearance-none bg-white text-slate-700 cursor-pointer">
+                            <option value="">Semua Akreditasi</option>
+                        </select>
+                        <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4 pointer-events-none"></i>
+                    </div>
+
+                </div>
+                
+                <!-- Display Count Indicator -->
+                <div class="text-sm text-slate-600 font-medium whitespace-nowrap bg-slate-50 px-4 py-2.5 rounded-lg border border-slate-200 flex items-center gap-2 shadow-sm w-full xl:w-auto justify-center">
+                    <i data-lucide="layers" class="w-4 h-4 text-emerald-600"></i>
+                    Menampilkan <span id="countDisplay" class="text-emerald-700 font-bold text-lg leading-none">0</span> Program Studi
+                </div>
+
             </div>
         </div>
 
@@ -104,14 +135,40 @@
             { id: 25, kode: "74108", nama: "Hukum", jenjang: "S2", peringkatNasional: "Unggul", skNasional: "3982/SK/BAN-PT/Ak.Ppj/M/V/2024", masaNasional: "24/04/2024 - 24/04/2029", internasional: [ { nama: "FIBAA", masa: "2024 – 2029", link: "https://drive.google.com/file/d/17TCp9uGgyX61dO9vJTH97_oqRyXlFA8i/view?usp=drive_link" } ] },
             { id: 26, kode: "57201", nama: "Sistem Informasi", jenjang: "S1", peringkatNasional: "Baik Sekali", skNasional: "015/SK/LAM-INFOKOM/Ak/S/XII/2022", masaNasional: "05/12/2022 - 05/12/2027", internasional: [ { nama: "IABEE", masa: "2026 – 2030", link: "https://lpm.unand.ac.id/wp-content/uploads/2026/04/IABEE-SISTEM-INFORMASI.pdf" } ] },
             { id: 27, kode: "56201", nama: "Teknik Komputer", jenjang: "S1", peringkatNasional: "Baik Sekali", skNasional: "137/SK/LAM-INFOKOM/Ak/S/XII/2022", masaNasional: "23/12/2022 - 23/12/2027", internasional: [ { nama: "IABEE", masa: "2026 – 2030", link: "https://lpm.unand.ac.id/wp-content/uploads/2026/04/IABEE-TEKNIK-KOMPUTER.pdf" } ] },
-			{ id: 28, kode: "79202", nama: "Sastra Inggris", jenjang: "S1", peringkatNasional: "B", skNasional: "10220/SK/BAN-PT/Ak-PPJ/S/VIII/2021", masaNasional: "12/08/2021 - 12/08/2026", internasional: [ { nama: "FIBAA", masa: "2026 – 2031", link: "https://lpm.unand.ac.id/wp-content/uploads/2026/05/FIBA-SASING.pdf" } ] },
-			{ id: 29, kode: "79211", nama: "Sastra Minangkabau", jenjang: "S1", peringkatNasional: "B", skNasional: "9594/SK/BAN-PT/Ak-PPJ/S/VII/2021", masaNasional: "22/06/2021 - 22/06/2026", internasional: [ { nama: "FIBAA", masa: "2026 – 2031", link: "https://lpm.unand.ac.id/wp-content/uploads/2026/05/FIBAA-S1-MINANGKABAU.pdf" } ] }
+            { id: 28, kode: "79202", nama: "Sastra Inggris", jenjang: "S1", peringkatNasional: "B", skNasional: "10220/SK/BAN-PT/Ak-PPJ/S/VIII/2021", masaNasional: "12/08/2021 - 12/08/2026", internasional: [ { nama: "FIBAA", masa: "2026 – 2031", link: "https://lpm.unand.ac.id/wp-content/uploads/2026/05/FIBA-SASING.pdf" } ] },
+            { id: 29, kode: "79211", nama: "Sastra Minangkabau", jenjang: "S1", peringkatNasional: "B", skNasional: "9594/SK/BAN-PT/Ak-PPJ/S/VII/2021", masaNasional: "22/06/2021 - 22/06/2026", internasional: [ { nama: "FIBAA", masa: "2026 – 2031", link: "https://lpm.unand.ac.id/wp-content/uploads/2026/05/FIBAA-S1-MINANGKABAU.pdf" } ] }
         ];
 
         // Referensi elemen DOM
         const searchInput = document.getElementById('searchInput');
+        const filterJenjang = document.getElementById('filterJenjang');
+        const filterLembaga = document.getElementById('filterLembaga');
         const tableBody = document.getElementById('tableBody');
         const countDisplay = document.getElementById('countDisplay');
+
+        // Inisialisasi Opsi Filter Dropdown secara Dinamis
+        function initFilters() {
+            const jenjangSet = new Set();
+            const lembagaSet = new Set();
+
+            // Mengumpulkan data unik dari dataAkreditasi
+            dataAkreditasi.forEach(item => {
+                if(item.jenjang) jenjangSet.add(item.jenjang);
+                if(item.internasional) {
+                    item.internasional.forEach(intl => lembagaSet.add(intl.nama));
+                }
+            });
+
+            // Memasukkan ke opsi Jenjang dan urutkan
+            Array.from(jenjangSet).sort().forEach(j => {
+                filterJenjang.insertAdjacentHTML('beforeend', `<option value="${j}">${j}</option>`);
+            });
+
+            // Memasukkan ke opsi Lembaga Internasional dan urutkan
+            Array.from(lembagaSet).sort().forEach(l => {
+                filterLembaga.insertAdjacentHTML('beforeend', `<option value="${l}">${l}</option>`);
+            });
+        }
 
         // Fungsi untuk merender tabel
         function renderTable(data) {
@@ -137,7 +194,7 @@
                         
                         html += `<tr class="hover:bg-slate-50 transition-colors ${borderClass}">`;
                         
-                        // Kolom identitas Prodi hanya dirender di baris pertama
+                        // Kolom identitas Program Studi hanya dirender di baris pertama
                         if (idx === 0) {
                             const rowSpan = item.internasional.length;
                             html += `
@@ -193,24 +250,39 @@
             lucide.createIcons();
         }
 
-        // Filter Function
-        function handleSearch() {
+        // Fungsi Filter Gabungan (Pencarian & Dropdown)
+        function applyFilters() {
             const searchTerm = searchInput.value.toLowerCase();
+            const selectedJenjang = filterJenjang.value;
+            const selectedLembaga = filterLembaga.value;
             
-            const filteredData = dataAkreditasi.filter(item => 
-                item.nama.toLowerCase().includes(searchTerm) || 
-                item.kode.includes(searchTerm) ||
-                item.internasional.some(intl => intl.nama.toLowerCase().includes(searchTerm))
-            );
+            const filteredData = dataAkreditasi.filter(item => {
+                // 1. Filter Pencarian Teks
+                const matchSearch = item.nama.toLowerCase().includes(searchTerm) || 
+                                    item.kode.includes(searchTerm) ||
+                                    item.internasional.some(intl => intl.nama.toLowerCase().includes(searchTerm));
+                
+                // 2. Filter Dropdown Jenjang
+                const matchJenjang = selectedJenjang === "" || item.jenjang === selectedJenjang;
+
+                // 3. Filter Dropdown Lembaga Akreditasi Internasional
+                const matchLembaga = selectedLembaga === "" || item.internasional.some(intl => intl.nama === selectedLembaga);
+
+                // Kembalikan data hanya jika memenuhi SEMUA kondisi di atas (AND logic)
+                return matchSearch && matchJenjang && matchLembaga;
+            });
             
             renderTable(filteredData);
         }
 
-        // Event Listener pencarian
-        searchInput.addEventListener('input', handleSearch);
+        // Event Listeners untuk semua filter
+        searchInput.addEventListener('input', applyFilters);
+        filterJenjang.addEventListener('change', applyFilters);
+        filterLembaga.addEventListener('change', applyFilters);
 
-        // Render tabel saat pertama kali diload
-        renderTable(dataAkreditasi);
+        // Inisialisasi awal saat load
+        initFilters();
+        applyFilters();
     </script>
 </body>
 </html>
